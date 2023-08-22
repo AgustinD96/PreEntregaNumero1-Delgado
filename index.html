@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function mostrarProductos(nombres, precios) {
+    let listaProductos = "Productos disponibles:\n";
+    for (let i = 0; i < nombres.length; i++) {
+     listaProductos += `${i + 1}. ${nombres[i]} - $${precios[i]}\n`;
+    }
+    alert(listaProductos);
+    }
+
+    function seleccionarProducto(nombres, precios) {
+    const lista = mostrarProductos(nombres, precios);
+    return parseInt(prompt(lista + "Selecciona un producto (número) o presiona 0 para salir:"));
+   }
+
+   function comprarProductos(nombres, precios) {
+   const carrito = [];
+   let continuar = true;
+
+   while (continuar) {
+    const opcion = seleccionarProducto(nombres, precios);
+
+    if (opcion === 0) {
+      continuar = false;
+    } else if (opcion >= 1 && opcion <= nombres.length) {
+      const productoSeleccionado = { nombre: nombres[opcion - 1], precio: precios[opcion - 1] };
+      carrito.push(productoSeleccionado);
+      alert(`${productoSeleccionado.nombre} se añadió al carrito.`);
+    } else {
+      alert("Opción inválida. Por favor, selecciona un producto válido.");
+    }
+  }
+
+  return carrito;
+  }
+
+  function mostrarCarrito(carrito) {
+   let total = 0;
+   let listaComprados = "Has comprado los siguientes productos:\n";
+
+   for (const producto of carrito) {
+    listaComprados += `${producto.nombre} - $${producto.precio}\n`;
+    total += producto.precio;
+   }
+
+   return { listaComprados, total };
+  }
+
+  alert("Bienvenido al simulador de carrito de compras.");
+
+  const nombresProductos = ["Cuencos", "Platos", "Macetas", "Tazas Chinas", "Platos"];
+  const preciosProductos = [3500, 1500, 2000, 2600, 1500];
+
+  const carritoUsuario = comprarProductos(nombresProductos, preciosProductos);
+  if (carritoUsuario.length > 0) {
+   const { listaComprados, total } = mostrarCarrito(carritoUsuario);
+   alert(listaComprados + `Total: $${total}. ¡Gracias por tu compra!`);
+  } else {
+  alert("No has comprado ningún producto. ¡Hasta luego!");
+  }
+
+
+    
+    </script>
+</body>
+</html>
